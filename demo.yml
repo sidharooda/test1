@@ -1,1 +1,23 @@
-
+name: GitHub Actions Pipeline
+on:
+  push:
+    branches:
+      - main
+jobs:
+  invoke_api:
+    runs-on: windows-latest
+    steps:
+      - name: Call REST API
+        run: |
+          $BatchscheduleID = BreezBatcScheduleID
+          $params = @{
+            Uri = BreeZPipelineURL
+            Method = MethodType
+            Body = @{
+              Usernameofbreez = BreeZUserID
+              Passwordofbreez = Passwird
+              BatchscheduleID = $BatchscheduleID
+              IpAddress = BreeZIPAddress
+            }
+          }
+          Invoke-RestMethod @params
